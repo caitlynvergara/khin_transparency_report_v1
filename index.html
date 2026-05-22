@@ -1,0 +1,666 @@
+<!--
+  Khin.AI Training Database
+  Styled per DESIGN.md (Editorial Minimalism, light mode)
+  Maintainer: Caitlyn Vergara
+  Last updated: 2026-05-21
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Khin.AI Training Database</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* DESIGN.md tokens, light-mode */
+    --cream: #f8f5f1;
+    --cream-deep: #efe9e2;
+    --surface: #f8f5f1;
+    --surface-container: #ffffff;
+    --surface-container-deep: #f1ebe4;
+    --on-surface: #1a1a1a;
+    --on-surface-muted: #5a4a44;
+    --outline: #c8b6af;
+    --outline-soft: #e3d5cd;
+    --primary: #e67e5d;            /* Terracotta Coral */
+    --primary-deep: #b85638;
+    --secondary: #849679;          /* Sage Green */
+    --secondary-soft: #b9ccad;
+    --tertiary: #d9b182;           /* Muted Gold */
+    --tertiary-deep: #b99467;
+    --resource: #9b6d63;            /* Warm clay */
+    --resource-soft: #d8c0b8;
+
+    /* Category accents */
+    --cat-1: var(--secondary);            /* Benefits: Sage */
+    --cat-1-soft: #d6e0cc;
+    --cat-2: var(--primary);              /* Problems: Coral */
+    --cat-2-soft: #f7d6c8;
+    --cat-3: var(--tertiary-deep);        /* Research: Gold */
+    --cat-3-soft: #f0deba;
+    --cat-4: var(--resource);             /* Resources: clay */
+    --cat-4-soft: var(--resource-soft);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--surface);
+    color: var(--on-surface);
+  }
+
+  body {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto;
+    padding: 4rem 4rem 6rem;
+    max-width: 1400px;
+  }
+
+  /* Three-dots brand motif */
+  .dots {
+    display: inline-flex;
+    gap: 0.45rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .dots span {
+    width: 11px; height: 11px; border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-sage { background: var(--secondary); }
+  .dot-coral { background: var(--primary); }
+  .dot-gold { background: var(--tertiary-deep); }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: 'Libre Caslon Text', Georgia, serif;
+    font-weight: 400;
+    color: var(--on-surface);
+    letter-spacing: -0.01em;
+  }
+  h1 {
+    font-size: 64px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+  }
+  h2.section {
+    font-size: 32px;
+    line-height: 1.3;
+    margin: 5rem 0 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  h2.cat-1 { border-top-color: var(--cat-1); }
+  h2.cat-2 { border-top-color: var(--cat-2); }
+  h2.cat-3 { border-top-color: var(--cat-3); }
+  h2.cat-4 { border-top-color: var(--cat-4); }
+
+  h4.entry-title {
+    font-family: 'Libre Caslon Text', Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.35;
+    margin: 0 0 0.75rem;
+    color: var(--on-surface);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .label {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--on-surface-muted);
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    font-family: 'Libre Caslon Text', Georgia, serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--on-surface-muted);
+    margin: 0 0 2rem;
+    max-width: 820px;
+    line-height: 1.45;
+  }
+
+  /* Top intro block */
+  .intro {
+    border-left: 2px solid var(--primary);
+    padding: 0.25rem 0 0.25rem 1.5rem;
+    margin: 2rem 0 4rem;
+    max-width: 820px;
+  }
+  .intro p { margin: 0 0 1rem; color: var(--on-surface); }
+
+  /* Category meta header */
+  .cat-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 5rem 0 0;
+  }
+  .cat-tag {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    color: #fff;
+  }
+  .cat-1-tag { background: var(--cat-1); color: #1f2a18; }
+  .cat-2-tag { background: var(--cat-2); color: #fff; }
+  .cat-3-tag { background: var(--cat-3); color: #fff; }
+  .cat-4-tag { background: var(--cat-4); color: #fff; }
+
+  .cat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border: 1px solid var(--outline);
+  }
+  .cat-icon.c1 svg { stroke: var(--cat-1); }
+  .cat-icon.c2 svg { stroke: var(--cat-2); }
+  .cat-icon.c3 svg { stroke: var(--cat-3); }
+  .cat-icon.c4 svg { stroke: var(--cat-4); }
+
+  /* Grid layout for entries */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    body { padding: 2rem 1.25rem 3rem; }
+    h1 { font-size: 40px; }
+    h2.section { font-size: 26px; }
+  }
+
+  /* Entry cards */
+  .entry {
+    border-top: 3px solid var(--outline-soft);
+    background: var(--surface-container);
+    padding: 1.5rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .entry.cat-1 { border-top-color: var(--cat-1); }
+  .entry.cat-2 { border-top-color: var(--cat-2); }
+  .entry.cat-3 { border-top-color: var(--cat-3); }
+  .entry.cat-4 { border-top-color: var(--cat-4); }
+
+  .entry .icon-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .entry .icon {
+    width: 22px; height: 22px;
+    color: var(--on-surface-muted);
+  }
+  .entry.cat-1 .icon { color: var(--cat-1); }
+  .entry.cat-2 .icon { color: var(--cat-2); }
+  .entry.cat-3 .icon { color: var(--cat-3); }
+  .entry.cat-4 .icon { color: var(--cat-4); }
+
+  .entry p { margin: 0.5rem 0; }
+  .apa {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 13px;
+    color: var(--on-surface-muted);
+    margin: 0.25rem 0 0.85rem;
+    line-height: 1.5;
+  }
+  .apa a { color: var(--primary-deep); text-decoration: none; border-bottom: 1px solid var(--outline-soft); word-break: break-word; }
+  .apa a:hover { color: var(--primary); }
+  .summary {
+    color: var(--on-surface);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  /* Subcategory header (within Category 1) */
+  .subhead {
+    grid-column: 1 / -1;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--on-surface-muted);
+    margin: 1.5rem 0 -0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .subhead::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: var(--cat-1);
+    display: inline-block;
+  }
+  .subhead.gold::before { background: var(--cat-3); }
+  .subhead.neutral::before { background: var(--outline); }
+
+  /* TOC */
+  .toc {
+    background: var(--surface-container);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0 4rem;
+    border-top: 2px solid var(--primary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+  }
+  .toc h2 {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--on-surface-muted);
+    margin: 0 0 0.75rem;
+    grid-column: 1 / -1;
+  }
+  .toc a {
+    color: var(--on-surface);
+    text-decoration: none;
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 15px;
+  }
+  .toc a:hover { color: var(--primary-deep); }
+  .toc .toc-icon { width: 18px; height: 18px; flex-shrink: 0; }
+  .toc .toc-icon.c1 { color: var(--cat-1); }
+  .toc .toc-icon.c2 { color: var(--cat-2); }
+  .toc .toc-icon.c3 { color: var(--cat-3); }
+  .toc .toc-icon.c4 { color: var(--cat-4); }
+  @media (max-width: 720px) {
+    .toc { grid-template-columns: 1fr; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 6rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--outline-soft);
+    font-size: 13px;
+    color: var(--on-surface-muted);
+    line-height: 1.6;
+  }
+  footer .dots { margin-bottom: 1rem; }
+  footer code {
+    background: var(--surface-container-deep);
+    padding: 2px 5px;
+    font-size: 12px;
+  }
+
+  /* Icon styling for inline SVGs */
+  svg.icon {
+    stroke-width: 1.6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .subchip {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+  }
+  .sub-lgbtq { background: var(--cat-1-soft); color: #2a3a22; }
+  .sub-asian { background: var(--cat-3-soft); color: #4a3208; }
+  .sub-general { background: var(--cream-deep); color: var(--on-surface-muted); }
+</style>
+</head>
+<body>
+
+  <div class="dots">
+    <span class="dot-sage"></span>
+    <span class="dot-coral"></span>
+    <span class="dot-gold"></span>
+  </div>
+
+  <span class="label">Khin.AI &nbsp;/&nbsp; Transparency Report</span>
+  <h1>The Training Database</h1>
+  <p class="subtitle">A living record of the curated sources used to train Khin as an educator on child online safety and youth mental health, helping families navigate the digital era.</p>
+
+  <div class="intro">
+    <p>Khin is being trained as an evidence-grounded educator, not an oracle. Every source listed here was reviewed, summarized, and categorized before being added to the model's reference corpus.</p>
+    <p>This document serves two purposes. It is part of Khin.AI's transparency report, and it is a standing invitation for researchers, clinicians, and family advocates to contribute. If you maintain peer-reviewed work, applied research, or family-facing resources in this space, please reach out.</p>
+  </div>
+
+  <nav class="toc">
+    <h2>Categories</h2>
+    <a href="#cat-1">
+      <svg class="icon toc-icon c1" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg>
+      01 &nbsp; Potential benefits youth are getting from social media and AI
+    </a>
+    <a href="#cat-2">
+      <svg class="icon toc-icon c2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      02 &nbsp; Mental health problems that extend from social media or AI
+    </a>
+    <a href="#cat-3">
+      <svg class="icon toc-icon c3" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      03 &nbsp; Research on types of problems
+    </a>
+    <a href="#cat-4">
+      <svg class="icon toc-icon c4" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      04 &nbsp; Resources for families
+    </a>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 1: BENEFITS -->
+  <!-- ============================================================ -->
+  <section id="cat-1">
+    <div class="cat-meta">
+      <span class="cat-tag cat-1-tag">01 / Benefits</span>
+    </div>
+    <h2 class="section cat-1">
+      <span class="cat-icon c1">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg>
+      </span>
+      Potential benefits youth are getting from social media and AI
+    </h2>
+
+    <div class="grid">
+
+      <div class="subhead">1a &nbsp; LGBTQ+ Youth <span class="subchip sub-lgbtq">LGBTQ+</span></div>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <span class="subchip sub-lgbtq">Systematic Review</span>
+        </div>
+        <h4 class="entry-title">Unveiling the pride in social media: A review of LGBTQIA+ use of online social networks</h4>
+        <p class="apa">Ebardo, R., &amp; Payawal, B. O. (2024). Unveiling the pride in social media: A review of LGBTQIA+ use of online social networks. <em>Asian CHI Symposium 2024</em>. ACM. <a href="https://doi.org/10.1145/3704611.3704653">https://doi.org/10.1145/3704611.3704653</a></p>
+        <p class="summary">This systematic review of 41 publications maps why LGBTQIA+ users, who are disproportionately young adults, turn to social media: seeking information, exchanging peer support, and finding connections that are difficult to access in person. It also catalogs the platform affordances (community building, account management, content curation, multimedia sharing) that make these spaces functional substitutes for in-person community. The review is significant for Khin because it grounds the affirmative case for online spaces in evidence, rather than treating harm and benefit as a binary.</p>
+      </article>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1v-7h3v5z"/><path d="M3 19a2 2 0 002 2h1v-7H3v5z"/></svg>
+          <span class="subchip sub-lgbtq">Survey Brief</span>
+        </div>
+        <h4 class="entry-title">LGBTQ young people of color in online spaces</h4>
+        <p class="apa">The Trevor Project. (2023, July). <em>LGBTQ young people of color in online spaces</em> [Research brief]. The Trevor Project. <a href="https://www.thetrevorproject.org/research-briefs/lgbtq-young-people-of-color-in-online-spaces/">thetrevorproject.org</a></p>
+        <p class="summary">Drawing on the 2023 U.S. National Survey on the Mental Health of LGBTQ Young People, this brief reports that LGBTQ young people who feel safe and understood in at least one online space have 20% lower odds of a past-year suicide attempt and 15% lower odds of recent anxiety. The protective effect on anxiety is even stronger among LGBTQ young people of color, who report TikTok, Discord, Instagram, and YouTube as their leading safe spaces. The brief is foundational evidence for Khin that blanket-restriction advice ignores genuinely life-protective uses of platforms, particularly for multiply marginalized youth.</p>
+      </article>
+
+      <div class="subhead gold">1b &nbsp; Asian American / Asian Youth <span class="subchip sub-asian">Asian</span></div>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><path d="M8 15s1.5 2 4 2 4-2 4-2"/></svg>
+          <span class="subchip sub-asian">Empirical Study</span>
+        </div>
+        <h4 class="entry-title">The acceptability of artificial intelligence to support university students' mental health</h4>
+        <p class="apa">Lye, M., Martin, R., &amp; Richmond, S. (2026). The acceptability of artificial intelligence to support university students' mental health: The role of Asian cultural values and social support. <em>Computers in Human Behavior: Artificial Humans, 7</em>, 100247. <a href="https://doi.org/10.1016/j.chbah.2025.100247">https://doi.org/10.1016/j.chbah.2025.100247</a></p>
+        <p class="summary">In a sample of 135 Australian university students, adherence to Asian cultural values was positively associated with acceptability of AI-based mental health interventions, while perceived social support was not. The finding pushes back on a one-size-fits-all picture of AI mental health tools, suggesting that students with cultural norms around stigma and family privacy may be more open to AI as an entry point than to traditional services. For Khin, this is direct evidence that culturally responsive AI design can meet a need that institutional care has historically missed.</p>
+      </article>
+
+      <div class="subhead neutral">1c &nbsp; General Youth <span class="subchip sub-general">General</span></div>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+          <span class="subchip sub-general">National Survey</span>
+        </div>
+        <h4 class="entry-title">Use of generative AI for mental health advice among US adolescents and young adults</h4>
+        <p class="apa">McBain, R. K., Bozick, R., Diliberti, M., Zhang, L. A., Zhang, F., Burnett, A., Kofner, A., Rader, B., Breslau, J., Stein, B. D., Mehrotra, A., Uscher-Pines, L., Cantor, J., &amp; Yu, H. (2025). Use of generative AI for mental health advice among US adolescents and young adults. <em>JAMA Network Open, 8</em>(11), e2542281. <a href="https://doi.org/10.1001/jamanetworkopen.2025.42281">https://doi.org/10.1001/jamanetworkopen.2025.42281</a></p>
+        <p class="summary">The first nationally representative survey of U.S. youth ages 12 to 21 on this question found that 13.1% have used generative AI for mental health advice, rising to 22.2% in the 18 to 21 group, and that 92.7% of users described the advice as somewhat or very helpful. Black respondents were less likely to rate the advice as helpful, signaling clear equity gaps in current models. The study is the empirical anchor for Khin's design assumption that youth are already using AI for emotional support, and the relevant question is whether they use a model built for them.</p>
+      </article>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="subchip sub-general">Foundation Study</span>
+        </div>
+        <h4 class="entry-title">Remapping recovery: Understanding Gen Z's mental health journey</h4>
+        <p class="apa">Harvey, A., O'Shaughnessy, L., Kuznetsova, A., &amp; Fernandez, E. (2024). <em>Remapping recovery: Understanding Gen Z's mental health journey</em>. Made of Millions Foundation. <a href="https://www.madeofmillions.com">madeofmillions.com</a></p>
+        <p class="summary">This nationally representative Gen Z study finds that 41% of young people turn to social media for mental health education, second only to healthcare professionals at 43%, and ahead of parents at 28%. It documents Gen Z as the generation most likely to acknowledge mental health struggles, seek help, and de-stigmatize care, while also showing that diagnosis timelines are far shorter than legacy clinical literature suggests (28 months on average vs. the cited 13 to 17 years). The study supports Khin's position that social media is already functioning as a frontline mental health educator, and that this role should be designed for, not ignored.</p>
+      </article>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <span class="subchip sub-general">Peer Review</span>
+        </div>
+        <h4 class="entry-title">The future of mental health care: Peer-to-peer support and social media</h4>
+        <p class="apa">Naslund, J. A., Aschbrenner, K. A., Marsch, L. A., &amp; Bartels, S. J. (2016). The future of mental health care: Peer-to-peer support and social media. <em>Epidemiology and Psychiatric Sciences, 25</em>(1), 113&ndash;122. <a href="https://doi.org/10.1017/S2045796015001067">https://doi.org/10.1017/S2045796015001067</a></p>
+        <p class="summary">This influential review documents how people with serious mental illness, including youth, use social media to form social connections, blog about lived experience, and disclose mental health concerns at rates equal to or higher than peers without mental illness. The authors argue that online peer-to-peer networks reduce barriers (stigma, cost, in-person social demands) that block traditional care for marginalized and isolated individuals. Khin treats this paper as the foundational case for designing peer-aware educational responses, and for taking online peer support seriously as a clinical resource rather than dismissing it as distraction.</p>
+      </article>
+
+      <article class="entry cat-1">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          <span class="subchip sub-general">Intervention</span>
+        </div>
+        <h4 class="entry-title">Developing social media-based suicide prevention messages in partnership with young people</h4>
+        <p class="apa">Robinson, J., Bailey, E., Hetrick, S., Paix, S., O'Donnell, M., Cox, G., Ftanou, M., &amp; Skehan, J. (2017). Developing social media-based suicide prevention messages in partnership with young people: Exploratory study. <em>JMIR Mental Health, 4</em>(4), e40. <a href="https://doi.org/10.2196/mental.7847">https://doi.org/10.2196/mental.7847</a></p>
+        <p class="summary">In a six to eight week psychoeducation program, this study tested whether co-designed curricula could help young people discuss self-harm and suicide with peers more safely. Most participants reported feeling more confident having these conversations. The paper is one of the strongest pieces of evidence Khin uses to support the position that peer-to-peer disclosure can be made safer through structured education, although the authors note that the curriculum design and methodology were underspecified and warrant replication.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 2: PROBLEMS -->
+  <!-- ============================================================ -->
+  <section id="cat-2">
+    <div class="cat-meta">
+      <span class="cat-tag cat-2-tag">02 / Mental Health Problems</span>
+    </div>
+    <h2 class="section cat-2">
+      <span class="cat-icon c2">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </span>
+      Mental health problems that extend from social media or AI
+    </h2>
+
+    <div class="grid">
+
+      <article class="entry cat-2">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span class="subchip sub-general">Longitudinal</span>
+        </div>
+        <h4 class="entry-title">The development of post-traumatic stress symptoms among adolescents who experience cyber and traditional victimization over time</h4>
+        <p class="apa">Holfeld, B., &amp; Mishna, F. (2021). <em>Journal of Youth and Adolescence, 50</em>(10), 2339&ndash;2350. <a href="https://doi.org/10.1007/s10964-021-01394-3">https://doi.org/10.1007/s10964-021-01394-3</a></p>
+        <p class="summary">Following 510 Canadian adolescents (grades 7 and 10) across three academic years, this longitudinal study shows that concurrent cyber and traditional bullying victimization is uniquely associated with PTSD symptoms, and that elevated PTSD symptoms in turn predict more victimization over time, creating a bidirectional cycle. The findings legitimize cyberbullying as a trauma exposure, not merely a stressor. Khin uses this to frame conversations with families: PTSD-grade symptoms after digital harassment are clinically expected, not an overreaction.</p>
+      </article>
+
+      <article class="entry cat-2">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span class="subchip sub-general">Systematic Review</span>
+        </div>
+        <h4 class="entry-title">The mental health and social implications of nonconsensual sharing of intimate images on youth</h4>
+        <p class="apa">Schmidt, F., Varese, F., Larkin, A., &amp; Bucci, S. (2024). <em>Trauma, Violence, &amp; Abuse, 25</em>(3), 2158&ndash;2172. <a href="https://doi.org/10.1177/15248380231207896">https://doi.org/10.1177/15248380231207896</a></p>
+        <p class="summary">This systematic review of 13 eligible studies finds consistent associations between nonconsensual sharing of sexual images (NCSSI) and increased depression, anxiety, and suicidal ideation among youth, compounded by bullying, harassment, and victim-blaming in the social aftermath. The authors call out the field's reliance on unvalidated measurement tools and the conflation of consensual and nonconsensual sharing. For Khin, this clarifies the distinction families often miss: the harm is the loss of consent and the social fallout, not the original image.</p>
+      </article>
+
+      <article class="entry cat-2">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span class="subchip sub-general">Focus Group</span>
+        </div>
+        <h4 class="entry-title">Online safety when considering self-harm and suicide-related content</h4>
+        <p class="apa">La Sala, L., Sabo, A., Michail, M., Thorn, P., Lamblin, M., Browne, V., &amp; Robinson, J. (2025). <em>Journal of Medical Internet Research, 27</em>, e66321. <a href="https://doi.org/10.2196/66321">https://doi.org/10.2196/66321</a></p>
+        <p class="summary">Six focus groups with Australian youth (12 to 25), policy makers, and global social media industry professionals surface where these three stakeholder groups agree and disagree on online safety for self-harm and suicide content. Up to 83% of young people report having seen this content on social media, often unsearched-for, and often before age 13. The study is significant for Khin because it captures young people's own framing of where platforms, governments, and families should draw responsibility lines, input that adult-authored policy frequently omits.</p>
+      </article>
+
+      <article class="entry cat-2">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="subchip sub-general">Qualitative</span>
+        </div>
+        <h4 class="entry-title">Technology assisted child sexual abuse in the UK: Young people's views on the impact of online sexual abuse</h4>
+        <p class="apa">Hamilton-Giachritsis, C., Hanson, E., Whittle, H., Alves-Costa, F., &amp; Beech, A. (2020). <em>Children and Youth Services Review, 119</em>, 105451. <a href="https://doi.org/10.1016/j.childyouth.2020.105451">https://doi.org/10.1016/j.childyouth.2020.105451</a></p>
+        <p class="summary">Drawing on the perspectives of young people who experienced technology-assisted child sexual abuse, this UK study finds that the mental health outcomes following online CSA are largely equivalent to those following offline CSA. This finding is critical because it counters a still-common belief among parents, providers, and law enforcement that online abuse is somehow less serious. Khin uses it to make sure CSAM, sextortion, and online grooming are treated with the same clinical weight as contact abuse.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 3: RESEARCH -->
+  <!-- ============================================================ -->
+  <section id="cat-3">
+    <div class="cat-meta">
+      <span class="cat-tag cat-3-tag">03 / Research on Problem Types</span>
+    </div>
+    <h2 class="section cat-3">
+      <span class="cat-icon c3">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      </span>
+      Research on types of problems
+    </h2>
+
+    <div class="grid">
+
+      <article class="entry cat-3">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          <span class="subchip sub-general">Thorn / Survey</span>
+        </div>
+        <h4 class="entry-title">Responding to online threats: Minors' perspectives on disclosing, reporting, and blocking in 2021</h4>
+        <p class="apa">Thorn. (2023). <em>Responding to online threats: Minors' perspectives on disclosing, reporting, and blocking in 2021</em> [Report]. Thorn. <a href="https://www.thorn.org/research/library/responding-to-online-threats-2021/">thorn.org</a></p>
+        <p class="summary">Survey of 1,000 minors aged 9 to 17 finds that minors experience online sexual interactions with peers and perceived adults at concerningly similar rates, prefer online safety tools (blocking, reporting) over offline disclosure to caregivers by a 2.5x margin, and continue to face recontacts from problematic users even after blocking. The report is one of Khin's primary references on the gap between platform tools and durable safety. It also directly informs how Khin coaches families: kids are using the tools, but the tools are not closing the loop.</p>
+      </article>
+
+      <article class="entry cat-3">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <span class="subchip sub-general">Thorn / Emerging</span>
+        </div>
+        <h4 class="entry-title">Commodified sexual interactions involving minors</h4>
+        <p class="apa">Thorn. (2025, April). <em>Commodified sexual interactions involving minors: Evolving dynamics in technology-facilitated child sexual exploitation</em> [Report]. Thorn. <a href="https://info.thorn.org/hubfs/Research/Thorn_CommodifiedSexualInteractionsInvolvingMinors_Apr2025.pdf">thorn.org</a></p>
+        <p class="summary">This report introduces a new category, commodified sexual interactions, for the exchange of items of value (monetary or otherwise) for sexual interaction with a minor without a third-party facilitator, and documents how youth themselves are encountering these dynamics in their digital lives. It expands the operational definition of CSEC beyond trafficked or third-party-mediated cases. Khin uses this work to keep its understanding of CSAM, sextortion, and CSEC current rather than relying on the pre-platform terminology that still dominates parent-facing content.</p>
+      </article>
+
+      <article class="entry cat-3">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <span class="subchip sub-general">Thorn / Field</span>
+        </div>
+        <h4 class="entry-title">Advancing response to sadistic online exploitation in networked youth environments</h4>
+        <p class="apa">Thorn. (2026, May). <em>Advancing response to sadistic online exploitation in networked youth environments</em> [Report]. Thorn. <a href="https://info.thorn.org/hubfs/Research/Thorn_SOEResponse_Report_2026.pdf">thorn.org</a></p>
+        <p class="summary">Drawing on field interviews with more than 30 practitioners across eight countries, this report defines sadistic online exploitation (SOE) as youth-driven, networked environments where harm itself becomes the basis for status and belonging, with adolescents acting as both victims and participants. It documents how existing single-domain classification frameworks fail to capture the multi-modal nature of SOE. For Khin, this is essential context that the most dangerous emerging environments are not adult predator to child, but peer-network ecosystems with normalized escalation.</p>
+      </article>
+
+      <article class="entry cat-3">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          <span class="subchip sub-general">Stanford Workshop</span>
+        </div>
+        <h4 class="entry-title">Stanford youth safety and digital wellbeing report, 2025</h4>
+        <p class="apa">Linos, E., Hancock, J., Lopez, M. A., Harrison, V., Lee, A. Y., Stevic, A., Liu, S., Lembke, A., Katz, R., &amp; Jin, K.-X. (2025). <em>Stanford youth safety and digital wellbeing report, 2025</em>. Stanford CDH &amp; SML. <a href="https://cdh.stanford.edu">cdh.stanford.edu</a></p>
+        <p class="summary">This Stanford workshop report introduces the Integrated Harm Framework (IHF), an expert-rated taxonomy of 22 specific youth-specific social media harms across four conceptual categories (safety/criminal, health/wellbeing, content-driven, other). The top-rated harms include adult-minor solicitation, CSAM/CSEM, self-harm/suicide-promoting communities, and bullying/harassment. Khin uses the IHF as its working taxonomy when distinguishing between harms families ask about, so the model can be precise about scale and mitigation rather than collapsing distinct risks into a single screen-time conversation.</p>
+      </article>
+
+      <article class="entry cat-3">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span class="subchip sub-general">Framework</span>
+        </div>
+        <h4 class="entry-title">A framework for digital safety: Designing social media interventions</h4>
+        <p class="apa">Vergara, C., Ranka, H., Kothari, N., Lalwani, J., &amp; Mehta, S. (2024). <em>A framework for digital safety: Designing social media interventions</em> [Working paper]. SimPPL. <a href="https://ssrn.com/abstract=5376295">ssrn.com</a></p>
+        <p class="summary">This paper proposes a four-parameter taxonomy (focus, scope, driver, user journey) for classifying social media interventions, applied to TikTok, Instagram, and YouTube. It distinguishes between platform features (neutral functionality) and interventions (intentional harm-reduction measures), and provides a common language for cross-platform comparison. Khin's recommendation logic for families, including when to nudge a setting change vs. when to escalate, is built on this taxonomy, and the framework is a self-citation maintained to make Khin's reasoning auditable.</p>
+      </article>
+
+      <article class="entry cat-3">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14H8"/><path d="M15 18H8"/><path d="M10 6h8v4h-8V6z"/></svg>
+          <span class="subchip sub-general">News / Context</span>
+        </div>
+        <h4 class="entry-title">Mentions of trans kids scrubbed from national child safety clearinghouse website</h4>
+        <p class="apa">Robertson, A. (2025). Mentions of trans kids scrubbed from national child safety clearinghouse website. <em>The Verge</em>. <a href="https://www.theverge.com">theverge.com</a></p>
+        <p class="summary">This reported piece documents NCMEC's removal of transgender-youth references from its website following conservative-media criticism, and the resulting concern from advocates that LGBTQ+ youth lose access to safety resources designed for them. NCMEC characterized the change as a routine update. The piece is included to flag a critical political-context risk for Khin: family-facing resources upstream of the model can be quietly de-scoped, and the model needs awareness of which institutional sources have recently changed their stance on LGBTQ+ youth coverage.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 4: RESOURCES -->
+  <!-- ============================================================ -->
+  <section id="cat-4">
+    <div class="cat-meta">
+      <span class="cat-tag cat-4-tag">04 / Resources for Families</span>
+    </div>
+    <h2 class="section cat-4">
+      <span class="cat-icon c4">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </span>
+      Resources for families
+    </h2>
+
+    <div class="grid">
+
+      <article class="entry cat-4">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="subchip sub-general">Educator Guide</span>
+        </div>
+        <h4 class="entry-title">Suggested supplemental materials on online bullying and attacks</h4>
+        <p class="apa">Vergara, C. (n.d.). <em>Suggested supplemental materials on online bullying and attacks: Foundational skills module 3, managing risk</em> [Educator resource]. Harvard Medical School.</p>
+        <p class="summary">A curated educator resource pointing families and educators to NCMEC's <em>Cyberbullying</em> article, Thorn's <em>Sexting and Nonconsensual Sharing</em> research, Thorn's <em>Disclosure and Reporting</em> findings, and NCMEC/Take It Down's online safety tools. Each entry includes a short description of the resource's audience and purpose. This is one of two front-line, family-facing references in Khin's corpus and is used to ground "what do I do next" responses in vetted external services.</p>
+      </article>
+
+      <article class="entry cat-4">
+        <div class="icon-row">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <span class="subchip sub-general">Educator Guide</span>
+        </div>
+        <h4 class="entry-title">Understanding CSAM and sextortion: A guide for educators</h4>
+        <p class="apa">Vergara, C. (n.d.). <em>Understanding CSAM and sextortion: A guide for educators</em> [Educator resource]. Harvard Medical School.</p>
+        <p class="summary">A one-page educator brief defining CSAM (including AI-generated content depicting real children) and sextortion, with NCMEC's three direct intake services: Team HOPE (peer support), Take It Down (image removal for under-18s), and the Family Advocacy Network (trauma-trained mental health referrals). It also documents the 6,835 to 440,419 increase in CSAM reports in the first half of 2025 and the one-in-five teen sextortion exposure rate from Thorn. Khin uses this resource to give families a fast, accurate next step the moment they describe a CSAM or sextortion situation.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="dots">
+      <span class="dot-sage"></span>
+      <span class="dot-coral"></span>
+      <span class="dot-gold"></span>
+    </div>
+    <p><strong>Maintainer:</strong> Caitlyn Vergara &nbsp;&middot;&nbsp; <strong>Last reviewed:</strong> May 21, 2026</p>
+    <p>This document follows the Khin UI design system (see <code>DESIGN.md</code>), light-mode variant: Libre Caslon Text headlines, Hanken Grotesk body, Off-White Cream #F8F5F1 surface, Terracotta Coral #E67E5D accents, Sage Green #B9CCAD and Muted Gold #E9BF8F as category signals. Editorial Minimalism: protection through intelligence.</p>
+    <p><strong>How to contribute:</strong> If you have peer-reviewed research, applied reports, or family-facing resources you believe should be added to Khin's training corpus, please contact the maintainer. Each contribution will be reviewed, summarized in the format above, and credited.</p>
+  </footer>
+
+</body>
+</html>
